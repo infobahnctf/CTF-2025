@@ -1,0 +1,21 @@
+name: "quintuple-read"
+author: "GabeG888"
+category: pwn
+description: |-
+  How many ways can you read a file?
+
+  `nc quintuple-read.challs.infobahnc.tf 1337`
+
+  **Author**: GabeG888
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{readREADr34dRe4drE4D}
+files:
+  - quintuple-read.zip
+state: visible
+version: "0.1"

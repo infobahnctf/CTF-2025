@@ -1,0 +1,25 @@
+{
+  "name": "patchnotes-cms",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.2.10",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "happy-dom": "19.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.7",
+    "@types/react": "18.3.2",
+    "@types/react-dom": "18.3.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "^14.2.10",
+    "typescript": "5.4.5"
+  }
+}

@@ -1,0 +1,21 @@
+name: "Access Code"
+author: "oh_word"
+category: rev
+description: |-
+  Security by obscurity. Can find my backdoor and retrieve the flag? 
+
+  `nc access-code.challs.infobahnc.tf 1337`
+
+  **Author**: oh_word
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{good_to_see_that_crystal_still_compiles_to_hot_garbage}
+files:
+  - challenge/chall
+state: visible
+version: "0.1"

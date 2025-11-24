@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: ./backend
+  proxy:
+    build:
+      context: ./proxy
+    ports:
+      - 8080:8080
+    environment:
+      - BACKEND_ORIGIN=backend
+      - BASIC_PASSWORD=this_will_be_provided_by_the_instancer
+  bot:
+    build:
+      context: ./bot
+    ports:
+      - 1337:1337
+    environment:
+      - APP_URL=http://logo:this_will_be_provided_by_the_instancer@proxy:8080/
+      - FLAG=infobahn{fake_flag}

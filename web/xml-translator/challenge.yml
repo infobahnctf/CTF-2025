@@ -1,0 +1,22 @@
+name: "XML Translator"
+author: "bawolff"
+category: web
+description: |-
+  XML is such an enterprise standard, lets inject a little fun.
+
+  https://xml-translator-web.challs2.infobahnc.tf
+  https://xml-translator-bot-web.challs2.infobahnc.tf
+
+  **Author:** bawolff
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{SH0U1D_H4V3_C0MP1l3D_W17H_3XP47}
+files:
+  - chall.zip
+state: visible
+version: "0.1"

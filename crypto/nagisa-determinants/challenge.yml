@@ -1,0 +1,22 @@
+name: "Nagisa Determinants"
+author: "Aeren"
+category: crypto
+description: |-
+  ![Nagisa Determinants](https://i.postimg.cc/SxLj59m6/Nagisa-Determinants.webp)
+
+  > Note: The output files are all generated with the same flag.
+
+  **Author**: Aeren
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{1_c4m3_b4ck_'c4u53_1_w4n73d_70_347_ch3353_0n3_m0r3_71m3}
+files:
+  - challenge.py
+  - outputs.zip
+state: visible
+version: "0.1"

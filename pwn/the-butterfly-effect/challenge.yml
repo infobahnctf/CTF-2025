@@ -1,0 +1,22 @@
+name: "The Butterfly effect"
+author: "Jopraveen"
+category: pwn
+description: |-
+  In chaos theory, the butterfly effect is the idea that
+  a tiny change in one state can cause vast differences later.
+
+  `nc the-butterfly-effect.challs.infobahnc.tf 1337`
+
+  **Author**: Jopraveen
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{wh0_needs_m4giC_twIc3?_when_U_c4n_b3nd_th3_heap_1n_A_Singl3_BiT_43ea37b5b48}
+files:
+  - butterfly_user.zip
+state: visible
+version: "0.1"

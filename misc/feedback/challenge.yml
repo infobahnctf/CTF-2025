@@ -1,0 +1,13 @@
+name: "Feedback"
+author: "Infobahn"
+category: misc
+description: |-
+  Thank you for participating in Infobahn CTF 2025! We hope you enjoyed the challenges! Please provide us with your feedback on the event in the following form.
+
+  https://forms.gle/ZTiYPXXByBT8zDrn6
+value: 0
+type: standard
+flags:
+  - infobahn{s33_y0u_n3xt_ye4r_1n_InfobahnCTF_2026!}
+state: visible
+version: "0.1"

@@ -1,0 +1,24 @@
+apiVersion: kctf.dev/v1
+kind: Challenge
+metadata:
+  name: swift-resume-service
+spec:
+  deployed: true
+  powDifficultySeconds: 0
+  network:
+    public: true
+    ports:
+      - protocol: "HTTPS"
+        targetPort: 8080
+        domains:
+          - "challs.infobahnc.tf"
+  healthcheck:
+    enabled: false
+  podTemplate:
+    template:
+      spec:
+        containers:
+          - name: challenge
+            env:
+            securityContext:
+              readOnlyRootFilesystem: false

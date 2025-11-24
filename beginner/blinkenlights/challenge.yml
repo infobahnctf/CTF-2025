@@ -1,0 +1,21 @@
+name: "blinkenlights"
+author: "programmer_user"
+category: beginner
+description: |-
+  Let the child choose the movie tonight.
+
+  **Author**: programmer_user
+value: 500
+type: dynamic
+tags:
+  - rev
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{4_n3w_h0p3_3m3r635_a9d12820}
+files:
+  - blinkenlights
+state: visible
+version: "0.1"

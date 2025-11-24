@@ -1,0 +1,17 @@
+name: "Sanity Check"
+author: "Infobahn"
+category: misc
+description: |-
+  Join our Discord!
+
+  https://2025.infobahnc.tf/discord
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{G00d_LucK_th1s_1S_Th3_54n17y_2435343!}
+state: visible
+version: "0.1"

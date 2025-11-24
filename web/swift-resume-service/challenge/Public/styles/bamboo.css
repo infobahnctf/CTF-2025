@@ -1,0 +1,25 @@
+body {
+  margin:2em auto;
+  min-width: min(700px, 100vw);
+  max-width: fit-content;
+  backdrop-filter: blur(3px);
+  border-radius: 10px;
+  background: rgb( 80, 200, 255, 0.4);
+  padding: 1em;
+  text-align: center;
+}
+body::before {
+  content:"Resume";
+  display:block;
+  font-size: 200%;
+  text-align:center;
+ 
+}
+h2, p, ul, li {
+  text-align:left;
+}
+
+html {
+   background: url( https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Small_multi-eyed_spider_on_bamboo_in_Tokyo.jpg/1280px-Small_multi-eyed_spider_on_bamboo_in_Tokyo.jpg) fixed no-repeat grey;
+   width: 1000px;  
+}

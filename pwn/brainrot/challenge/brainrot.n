@@ -1,0 +1,120 @@
+import fmt
+import fs
+import libc
+import strings
+
+[u32] user_inventory = []
+
+map<string,int> brainrot_map = {
+    'Meowl': 1,
+    'Ballerina Cappuccina': 10,
+    'John Pork': 100,
+    'Job Job Job Sahur': 1000,
+    'Odin Din Din Dun': 10000,
+    'Orcalero Orcala': 100000,
+    'Chimpanzini Bananini': 1000000,
+    'Los 67': 67676767,
+}
+
+var stdin = fs.stdin()
+
+fn read_string(i64 max_size):string! {
+    var buffer = vec_new<u8>(0, max_size)
+    stdin.read(buffer)
+    var result = buffer as string
+    if result.find('\n') != -1 {
+        result[result.find('\n')] = 0
+    }
+    return result
+}
+
+fn read_int():i64! {
+    return libc.strtol(read_string(24).to_cstr(), 0, 0)
+}
+
+fn print_brainrots() {
+    fmt.printf('\n=== Brainrots ===\n')
+    for k, v in brainrot_map {
+        fmt.printf('%s ($%d/s)\n', k, v)
+    }
+    fmt.printf('\n')
+}
+
+fn print_menu() {
+    fmt.printf('\n=== Steal a Brainrot Terminal ===\n')
+    fmt.printf('1. Steal a brainrot\n')
+    fmt.printf('2. Check brainrot income\n')
+    fmt.printf('3. Exit\n')
+    fmt.printf('> ')
+}
+
+fn steal():void! {
+    fmt.printf('Brainrot index: ')
+    var idx = read_int()
+    
+    if idx < 0 || idx >= user_inventory.len() {
+        fmt.printf('aaaaaaaaaaaaaaaaaaaaaaaa\n')
+        return
+    }
+    
+    print_brainrots()
+    fmt.printf('Which brainrot are you stealing?: ')
+    var to_steal = read_string(48)
+
+    if !brainrot_map.contains(to_steal) {
+        fmt.printf('u pmo sb icl\n')
+        return
+    }
+    
+    var income = brainrot_map[to_steal] as u32
+    user_inventory[idx] += income
+    fmt.printf('Added $%d/s of income to brainrot %d\n', income, idx)
+}
+
+fn check_income():void! {    
+    fmt.printf('Brainrot index: ')
+    var idx = read_int()
+    
+    if idx < 0 || idx >= user_inventory.len() {
+        fmt.printf('nuh uh\n')
+        return
+    }
+    
+    fmt.printf('Brainrot %d is generating $%d/s\n', idx, user_inventory[idx])
+}
+
+fn main():void! {
+    fmt.printf('=== Steal a Brainrot ===\n')
+    fmt.printf('How large is your inventory? ')
+    
+    var count = read_int()
+    
+    if count < 0 {
+        fmt.printf('r u fr...\n')
+        return
+    }
+
+    if count == 0 {
+        fmt.printf('js say u hate me gng 💔\n')
+        return
+    }
+    
+    user_inventory = vec_new<u32>(0, count)
+    fmt.printf('Created room for %d brainrots\n', user_inventory.len())
+    
+    for true {
+        print_menu()
+        var choice = read_int()
+        
+        if choice == 1 {
+            steal()
+        } else if choice == 2 {
+            check_income()
+        } else if choice == 3 {
+            fmt.printf('Goodbye\n')
+            break
+        } else {
+            fmt.printf('What are you doing 😭😭😭\n')
+        }
+    }
+}

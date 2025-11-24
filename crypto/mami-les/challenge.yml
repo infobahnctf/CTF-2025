@@ -1,0 +1,23 @@
+name: "Mami LES"
+author: "Aeren"
+category: crypto
+description: |-
+  ![Mami LES](https://i.postimg.cc/PJDXhhTS/Mami-LES.webp)
+
+  `nc mami-les.challs.infobahnc.tf 1337`
+
+  > Note: There is a 120 seconds connection timeout.
+
+  **Author**: Aeren
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{d0_y0u_7ru1y_w4n7_7h47_p3r50n'5_dr34m_70_c0m3_7ru3?_0r_15_17_7h47_y0u_w4n7_70_b3_7h47_p3r50n'5_54v10r_f0r_m4k1ng_7h47_dr34m_c0m3_7ru3?}
+files:
+  - challenge/server.py
+state: visible
+version: "0.1"

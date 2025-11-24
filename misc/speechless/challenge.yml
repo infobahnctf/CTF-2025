@@ -1,0 +1,23 @@
+name: "speechless"
+author: "quasar098"
+category: misc
+description: |-
+  wow i'm in jail??? i'm speechless...
+
+  `nc speechless.challs.infobahnc.tf 1337`
+
+  **Author**: quasar098
+value: 500
+type: dynamic
+tags:
+  - jail
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{i_can't_believe_i_used_ellipsis_in_a_jail_...}
+files:
+  - challenge/chall.py
+state: visible
+version: "0.1"

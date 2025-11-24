@@ -1,0 +1,24 @@
+body {
+  margin:2em auto;
+  width: fit-content;
+  backdrop-filter: blur(3px);
+  border-radius: 10px;
+  background: rgb( 80, 200, 255, 0.4);
+  padding: 1em;
+  text-align: center;
+}
+body::before {
+  content:"Resume";
+  display:block;
+  font-size: 200%;
+  text-align:center;
+ 
+}
+h2, p {
+  text-align:left;
+}
+
+html {
+   background: url( https://upload.wikimedia.org/wikipedia/commons/d/d8/Waterfall_on_river_Rheidol_%281293871%29.jpg) fixed no-repeat grey;
+   width: 1000px;  
+}

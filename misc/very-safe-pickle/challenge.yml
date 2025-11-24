@@ -1,0 +1,19 @@
+name: "very safe pickle"
+author: "t-chen"
+category: misc
+description: |-
+  🔒🔒🥒🔒🔒
+
+  **Author**: t-chen
+value: 500
+type: dynamic
+tags:
+  - jail
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+files:
+  - very-safe-pickle.zip
+state: visible
+version: "0.1"

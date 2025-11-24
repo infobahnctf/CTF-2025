@@ -1,0 +1,21 @@
+name: "disthis"
+author: "oh_word"
+category: rev
+description: |-
+  Sillymaxxing.
+
+  Tested to run on the python:3.13.8-slim docker image. 
+
+   **Author**: oh_word
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{this_is_by_far_the_worst_obfuscator_ive_had_the_displeasure_of_writing_i_dont_even_know_how_the_code_ran_e891ac534881}
+files:
+  - output.pyc
+state: visible
+version: "0.1"

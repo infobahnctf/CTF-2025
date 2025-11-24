@@ -1,0 +1,28 @@
+from sage.all import *
+from Crypto.Util.number import long_to_bytes
+
+load('https://raw.githubusercontent.com/Connor-McCartney/cado-nfs-discrete-log/main/cado_nfs_helper.py')
+
+def L(z):
+    _z = pow(z,p**(s-1)*(p-1),p**(2*s + 1))
+    return (_z-1)//(p**s)
+
+def log(c, g):
+    return (L(c)*pow(L(g),-1,p**(s-1))) % p**(s-1)
+
+
+n = 1630517278473550194282041875833486355623215533573046940060264097136914038603536518992736923653676649116183817847560673180565058236761676707835672941973386700920193823734995675702699
+c = 1205311994677213080553672976329272430376280336788757947479560449449519106113423651935986946100928433620706242735988889202701964570414180506408210904986303602097717823742023879116357
+
+
+p = int(ZZ(n).nth_root(3))
+s = 3
+g = 5
+
+#mp = pohlig_hellman(p, c, g) (my cado lib)
+mp = 548076912424470820061963981861064784611825957949687896996365
+print(f'{mp = }')
+
+mp2 = log(c, g)
+flag = crt([(p-1) // 2, p**2], [mp, mp2])[0]
+print(long_to_bytes(int(flag)))

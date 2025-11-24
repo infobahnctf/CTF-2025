@@ -1,0 +1,20 @@
+name: "LUTsOfFun"
+author: "BIGMONKE"
+category: rev
+description: |-
+  A friend gave me this Bitstream. He told me he hid a secret message and that it would be a LUT of fun to recover it!
+
+   **Author**: BIGMONKE
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{b1t5tr4mR3vers1ngCanB3 H4rd, bUt somet1mes you don't n33d to reverse everything :0}
+files:
+  - crackme.bit
+  - cstr.xdc
+state: visible
+version: "0.1"

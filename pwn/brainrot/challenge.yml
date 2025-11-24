@@ -1,0 +1,21 @@
+name: "pwn a brainrot"
+author: "oh_word"
+category: pwn
+description: |-
+  I spend 18 hours a day on instagram reels. My friends told me to reconnect with nature, whatever that means...
+
+  `nc brainrot.challs.infobahnc.tf 1337`
+
+  **Author**: oh_word
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{d0omscr0l1in_1t_cr4zy_styl3}
+files:
+  - chall.zip
+state: visible
+version: "0.1"

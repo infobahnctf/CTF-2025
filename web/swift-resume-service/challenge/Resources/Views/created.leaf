@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head>
+<title>Done!</title>
+<link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+<main>
+<h1>Done!</h1>
+<p>We have made your beautiful resume. Wasn't that fast? We aren't the swift resume service for nothing. View it <a href="/resumes/#(resumeId)">here</a>.</p><p>#(count) people have used this template.</p>
+<p><a href="/">Make another resume?</a></p>
+</main>
+</body>
+</html>

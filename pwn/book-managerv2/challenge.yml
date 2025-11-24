@@ -1,0 +1,21 @@
+name: "Book Manager V2"
+author: "0xM4hm0ud"
+category: pwn
+description: |-
+  I updated my book manager. This should be safe now. 
+
+  `nc book-managerv2.challs.infobahnc.tf 1337`
+
+  **Author**: 0xM4hm0ud
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{PaScAl_pWn_i5_St1ll_fUn_r1ght??_348374843223}
+files:
+  - handout.zip
+state: visible
+version: "0.1"

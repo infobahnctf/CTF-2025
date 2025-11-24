@@ -1,0 +1,28 @@
+apiVersion: kctf.dev/v1
+kind: Challenge
+metadata:
+  name: xml-translator-bot
+spec:
+  deployed: true
+  powDifficultySeconds: 0
+  network:
+    public: true
+    ports:
+      - protocol: "HTTPS"
+        targetPort: 1337
+        domains:
+          - "challs2.infobahnc.tf"
+  healthcheck:
+    enabled: false
+  podTemplate:
+    template:
+      spec:
+        containers:
+          - name: challenge
+            env:
+              - name: FLAG
+                value: infobahn{SH0U1D_H4V3_C0MP1l3D_W17H_3XP47}
+              - name: APP_URL
+                value: https://xml-translator-web.challs2.infobahnc.tf
+            securityContext:
+              readOnlyRootFilesystem: false

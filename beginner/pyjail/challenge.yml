@@ -1,0 +1,23 @@
+name: "pyjail"
+author: "GabeG888"
+category: beginner
+description: |-
+  Can you escape the jail?
+
+  `nc pyjail.challs.infobahnc.tf 1337`
+
+  **Author**: GabeG888
+value: 500
+type: dynamic
+tags:
+  - jail
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{Y0u_3Sc4p3D_Th3_J@1lll_4359849084894}
+files:
+  - challenge/chall.py
+state: visible
+version: "0.1"

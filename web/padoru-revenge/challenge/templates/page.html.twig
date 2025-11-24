@@ -1,0 +1,709 @@
+{% if is_front %}
+  {% set chain = app.request.query.get('chain') %}
+
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: #04070f;
+      color: #f8fbff;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(111, 23, 38, 0.88), rgba(35, 9, 27, 0.97)),
+        url("/static/image/padoru.gif");
+      background-size: cover, 320px;
+      background-position: center, center;
+      background-repeat: no-repeat, repeat;
+      background-attachment: fixed;
+      background-blend-mode: screen;
+      z-index: -3;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("/static/image/padoru.png");
+      background-size: 220px;
+      background-repeat: repeat;
+      background-position: center;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: -2;
+      mix-blend-mode: screen;
+    }
+
+    .dialog-off-canvas-main-canvas,
+    .holiday-page {
+      min-height: 100vh;
+      background: transparent !important;
+    }
+
+    .skip-link,
+    .page-title,
+    .messages,
+    .visually-hidden,
+    .visually-hidden.focusable {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .holiday-wrapper {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1.5rem 5rem;
+    }
+
+    .holiday-stage {
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      gap: 2.75rem;
+      z-index: 1;
+    }
+
+    .holiday-hero {
+      background: linear-gradient(135deg, rgba(244, 66, 96, 0.9), rgba(111, 23, 38, 0.88));
+      border-radius: 1.75rem;
+      padding: 3.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.45);
+    }
+    .holiday-hero::before,
+    .holiday-hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+      z-index: 0;
+    }
+    .holiday-hero::before {
+      background: #fbd270;
+      top: -60px;
+      right: -80px;
+    }
+    .holiday-hero::after {
+      background: #ff4e60;
+      bottom: -70px;
+      left: -60px;
+    }
+
+    .holiday-hero__content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .holiday-hero__content h1 {
+      font-size: clamp(2.6rem, 6vw, 3.9rem);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.04em;
+    }
+    .padoru-icon {
+      display: inline-block;
+      width: 1.65em;
+      aspect-ratio: 1;
+      margin: 0 0.35em;
+      background-image: url("/static/image/padoru.png");
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.45);
+    }
+    .holiday-hero__content p {
+      font-size: 1.15rem;
+      max-width: 760px;
+      margin: 0.75rem auto 0;
+      line-height: 1.7;
+      color: #ffe9f0;
+    }
+    .holiday-hero__art {
+      margin: 2.5rem auto 0;
+      display: flex;
+      justify-content: center;
+    }
+    .holiday-hero__art img {
+      width: min(320px, 60vw);
+      filter: drop-shadow(0 1.65rem 2.85rem rgba(0, 0, 0, 0.45));
+      will-change: transform;
+      animation: wobble 6s ease-in-out infinite;
+    }
+
+    .holiday-cta {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 1.75rem;
+      justify-items: center;
+    }
+    .holiday-cta code {
+      background: rgba(255, 255, 255, 0.18);
+      padding: 0.4rem 0.7rem;
+      border-radius: 0.4rem;
+      font-family: "Fira Code", "Courier New", monospace;
+    }
+    .holiday-cta a {
+      color: #ffe9f0;
+      text-decoration: none;
+    }
+    .holiday-cta a:hover {
+      color: #fff4d7;
+      text-decoration: underline;
+    }
+
+    .holiday-panels {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .holiday-card {
+      background: rgba(52, 8, 25, 0.82);
+      border-radius: 1.25rem;
+      padding: 2.35rem 2.1rem;
+      box-shadow: 0 1.75rem 2.75rem rgba(123, 24, 44, 0.45);
+    }
+    .holiday-card h2 {
+      margin: 0 0 1rem;
+      font-size: 1.85rem;
+      color: #fbd270;
+    }
+    .holiday-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+    }
+    .holiday-steps li {
+      background: rgba(135, 27, 52, 0.68);
+      padding: 1rem 1.25rem;
+      border-radius: 0.85rem;
+      border-left: 4px solid #fbd270;
+      font-size: 1.05rem;
+    }
+
+    .holiday-audio p {
+      margin-top: 0.75rem;
+      color: #ffe9f0;
+    }
+    .holiday-audio audio {
+      width: 100%;
+      max-width: none;
+    }
+    .holiday-playlist {
+      display: grid;
+      gap: 1.1rem;
+    }
+    .holiday-playlist__current {
+      display: grid;
+      gap: 0.35rem;
+    }
+    .holiday-playlist__controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+    }
+    .holiday-playlist__button {
+      background: rgba(255, 214, 109, 0.18);
+      border: 1px solid rgba(255, 214, 109, 0.38);
+      color: #fff6e6;
+      padding: 0.55rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .holiday-playlist__button:hover,
+    .holiday-playlist__button:focus-visible {
+      background: rgba(255, 214, 109, 0.32);
+      border-color: rgba(255, 214, 109, 0.52);
+      outline: none;
+    }
+    .holiday-playlist__tracks {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.45rem;
+    }
+    .holiday-playlist__track {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .holiday-playlist__track:hover,
+    .holiday-playlist__track:focus-visible {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .holiday-playlist__track-title {
+      font-weight: 600;
+      color: #fbd270;
+    }
+    .holiday-playlist__track-meta {
+      color: #ffe9f0;
+      font-size: 0.9rem;
+    }
+    .holiday-playlist__track--active {
+      background: rgba(251, 210, 112, 0.32);
+      border: 1px solid rgba(251, 210, 112, 0.52);
+      box-shadow: 0 0.45rem 1.8rem rgba(251, 210, 112, 0.38);
+    }
+    .holiday-gif {
+      display: grid;
+      gap: 1rem;
+      justify-items: center;
+      text-align: center;
+    }
+    .holiday-gif img {
+      width: min(360px, 70vw);
+      border-radius: 1.25rem;
+      box-shadow: 0 1.5rem 3.2rem rgba(111, 23, 38, 0.55);
+      border: 3px solid rgba(251, 210, 112, 0.45);
+    }
+    .holiday-gif p {
+      color: #ffe9f0;
+    }
+    .holiday-playlist__track--active .holiday-playlist__track-title {
+      color: #fff;
+    }
+
+    .holiday-payload {
+      background: rgba(73, 12, 35, 0.88);
+      padding: 2.35rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 1.75rem 2.75rem rgba(111, 23, 38, 0.42);
+    }
+    .holiday-payload__content {
+      margin-top: 1.25rem;
+      padding: 1.1rem;
+      border-radius: 0.85rem;
+      background: rgba(35, 7, 20, 0.6);
+      font-family: "Fira Code", "Courier New", monospace;
+      font-size: 0.95rem;
+      color: #f9f871;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .holiday-payload__content--html {
+      background: rgba(255, 214, 109, 0.28);
+      color: #1a0210;
+    }
+    .holiday-payload__error {
+      margin-top: 1rem;
+      color: #ffb6c1;
+      font-weight: 600;
+    }
+
+    .snowfield {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        radial-gradient(rgba(255, 214, 109, 0.15) 1px, transparent 1px),
+        radial-gradient(rgba(255, 255, 255, 0.12) 2px, transparent 2px);
+      background-size: 120px 120px, 90px 90px;
+      opacity: 0.55;
+      animation: shimmer 16s linear infinite;
+    }
+    @keyframes shimmer {
+      from { background-position: 0 0; }
+      to { background-position: 180px 180px; }
+    }
+
+    .snowflakes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .snowflake {
+      position: absolute;
+      top: -10%;
+      animation: padoru-fall 12s linear infinite;
+      text-shadow: 0 0.35rem 0.95rem rgba(0, 0, 0, 0.4);
+      width: 2.4rem;
+      height: 2.4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      will-change: transform;
+      opacity: 0.9;
+    }
+    .snowflake__icon {
+      width: 100%;
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .snowflake__icon--text {
+      color: #ffe9f0;
+      font-weight: 700;
+      font-size: 1.45rem;
+      line-height: 1;
+      text-align: center;
+      text-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.5);
+    }
+    .snowflake__icon--image {
+      background-image: url("/static/image/padoru.png");
+      background-size: cover;
+      background-position: center;
+    }
+    @keyframes padoru-fall {
+      0% { transform: translateY(-10vh) translateX(0) rotate(-12deg); opacity: 0; }
+      10% { opacity: 1; }
+      70% { transform: translateY(70vh) translateX(40px) rotate(12deg); opacity: 0.85; }
+      100% { transform: translateY(120vh) translateX(-60px) rotate(-18deg); opacity: 0; }
+    }
+    @keyframes wobble {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-6px) rotate(-2deg); }
+      50% { transform: translateY(2px) rotate(2deg); }
+      75% { transform: translateY(-4px) rotate(-1deg); }
+    }
+
+    @media (max-width: 768px) {
+      .holiday-wrapper {
+        padding: 5rem 1.25rem 4rem;
+      }
+      .holiday-hero {
+        padding: 3rem 2rem;
+      }
+    }
+  </style>
+
+  <div class="holiday-page">
+    <div class="holiday-soundtrack" aria-hidden="true"></div>
+
+    <div class="snowfield" aria-hidden="true"></div>
+
+    {% set snow_icons = ['パ', 'ド', 'ル', '🎁', '🎄', 'padoru'] %}
+    <div class="snowflakes" aria-hidden="true">
+      {% for i in 0..28 %}
+        {% set icon = snow_icons[i % snow_icons|length] %}
+        <div class="snowflake" style="left: {{ (i * 3.5) % 100 }}%; animation-delay: {{ (i * 0.55) % 10 }}s; animation-duration: {{ 10 + (i % 7) }}s;">
+          {% if icon == 'padoru' %}
+            <span class="snowflake__icon snowflake__icon--image" aria-hidden="true"></span>
+          {% else %}
+            <span class="snowflake__icon snowflake__icon--text" aria-hidden="true">{{ icon }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="holiday-wrapper">
+      <div class="holiday-stage">
+        <section class="holiday-hero">
+          <div class="holiday-hero__content">
+            <h1 aria-label="Padoru Padoru"><span class="padoru-icon" aria-hidden="true"></span> Padoru <span class="padoru-icon" aria-hidden="true"></span></h1>
+            <p>Hop in the sleigh and shout “パドる！”. Spin up your festive payloads while the chorus belts Padoru Padoru across the frosted skyline.</p>
+            <div class="holiday-cta">
+              <p>Drop a surprise verse into the stage by appending <code>?chain=BASE64</code> to the URL.</p>
+              <p>Sample chant: <a href="?chain=eyJodG1sIjogIjxwIHN0eWxlPVwiZm9udC1zaXplOiAxLjVlbTsgY29sb3I6ICNmZmY7IHRleHQtc2hhZG93OiAwIDAgMzBweCByZ2JhKDI1NSwgMjE1LCAxMjAsIDAuNSk7XCI+UGFkb3J1IFBhZG9ydSEgXHVkODNjXHVkZjg1XHVkODNjXHVkZjg0PC9wPiJ9">unwrap a chant</a></p>
+              <p>Tip: base64 encode JSON like <code>{"html":"&lt;h3&gt;Padoru chorus ready!&lt;/h3&gt;"}</code>.</p>
+            </div>
+            <div class="holiday-hero__art">
+              <img src="/static/image/padoru.png" alt="Padoru Saber cheering with a gift sack">
+            </div>
+          </div>
+        </section>
+
+        <section class="holiday-panels">
+          <article class="holiday-card">
+            <h2>Padoru Checklist</h2>
+            <ul class="holiday-steps">
+              <li>Reskin every block with scarlet capes, bell charms, and 夜空 gradients.</li>
+              <li>Assign Santa ranks so each editor knows when to shout “Padoru!”.</li>
+              <li>Schedule countdown drops timed with the nightly reindeer patrol.</li>
+            </ul>
+          </article>
+
+          <article class="holiday-card holiday-audio">
+            <h2>Padoru Playlist</h2>
+            <div class="holiday-playlist" data-playlist-root>
+              <div class="holiday-playlist__current">
+                <p id="holiday-playlist-now-playing" aria-live="polite">Loading the playlist…</p>
+                <div class="holiday-playlist__controls">
+                  <button type="button" class="holiday-playlist__button" data-playlist-toggle>⏸ Pause</button>
+                  <button type="button" class="holiday-playlist__button" data-playlist-prev aria-label="Previous track">⏮ Prev</button>
+                  <button type="button" class="holiday-playlist__button" data-playlist-next aria-label="Next track">⏭ Next</button>
+                </div>
+              </div>
+              <audio id="holiday-playlist-player" preload="metadata" controls autoplay playsinline crossorigin="anonymous"></audio>
+              <ul id="holiday-playlist-tracks" class="holiday-playlist__tracks"></ul>
+            </div>
+            <p>Queue up these peppermint-chip beats for your midnight Padoru raid.</p>
+          </article>
+
+          <article class="holiday-card holiday-gif">
+            <h2>Padoru Loop</h2>
+            <img src="/static/image/padoru.gif" alt="Animated Padoru dance loop">
+            <p>Keep this loop running to energize the gift-raid brigade.</p>
+          </article>
+        </section>
+
+        <script>
+          (function () {
+            var playlistRoot = document.querySelector('[data-playlist-root]');
+            if (!playlistRoot) { return; }
+
+            var tracks = [
+              {
+                title: "Padoru Padoru",
+                artist: "Chaldea Carolers",
+                src: "/static/audio/padoru_padoru.mp3",
+                info: "Classic holiday meme mix"
+              },
+              {
+                title: "Shikanoko! Nokonoko! Koshitantan!",
+                artist: "Koshitantan Ensemble",
+                src: "/static/audio/shikanoko.mp3",
+                info: "Energetic reindeer drill"
+              },
+              {
+                title: "Skibidi Hawk Tuah (Holiday Hawk)",
+                artist: "North Pole Hype Squad",
+                src: "/static/audio/skibidi_hawk_tuah_hawk.mp3",
+                info: "Chaotic sleigh pit stop"
+              }
+            ];
+
+            var player = document.getElementById('holiday-playlist-player');
+            var trackList = document.getElementById('holiday-playlist-tracks');
+            var nowPlaying = document.getElementById('holiday-playlist-now-playing');
+            var toggleButton = playlistRoot.querySelector('[data-playlist-toggle]');
+            var prevButton = playlistRoot.querySelector('[data-playlist-prev]');
+            var nextButton = playlistRoot.querySelector('[data-playlist-next]');
+            var currentIndex = 0;
+            var resumeListenersAttached = false;
+
+            if (!player || !trackList || !nowPlaying || !toggleButton || !prevButton || !nextButton) {
+              return;
+            }
+
+            player.autoplay = true;
+            player.muted = false;
+            player.volume = 0.9;
+            player.setAttribute('autoplay', '');
+            player.setAttribute('playsinline', '');
+
+            function setNowPlaying(track, status) {
+              var label = 'Now playing: ' + track.title + ' — ' + track.artist;
+              if (track.info) {
+                label += ' · ' + track.info;
+              }
+              if (status) {
+                label += ' (' + status + ')';
+              }
+              nowPlaying.textContent = label;
+            }
+
+            function updateButtons() {
+              toggleButton.textContent = player.paused ? '▶️ Play' : '⏸ Pause';
+            }
+
+            function clearActive() {
+              var active = trackList.querySelector('.holiday-playlist__track--active');
+              if (active) {
+                active.classList.remove('holiday-playlist__track--active');
+              }
+            }
+
+            function focusTrack(index) {
+              var items = trackList.querySelectorAll('.holiday-playlist__track');
+              if (items[index]) {
+                items[index].classList.add('holiday-playlist__track--active');
+              }
+            }
+
+            function attachResumeListeners(track) {
+              if (resumeListenersAttached) { return; }
+              resumeListenersAttached = true;
+              var resume = function () {
+                document.removeEventListener('pointerdown', resume);
+                document.removeEventListener('keydown', resume);
+                resumeListenersAttached = false;
+                player.muted = false;
+                player.volume = 0.9;
+                player.play().then(updateButtons).catch(function () {
+                  setNowPlaying(track, 'click the play button');
+                  updateButtons();
+                  attachResumeListeners(track);
+                });
+              };
+              document.addEventListener('pointerdown', resume, { once: true });
+              document.addEventListener('keydown', resume, { once: true });
+            }
+
+            function loadTrack(index, autoPlay) {
+              currentIndex = (index + tracks.length) % tracks.length;
+              var track = tracks[currentIndex];
+              player.src = track.src;
+              player.load();
+              setNowPlaying(track);
+              clearActive();
+              focusTrack(currentIndex);
+              if (autoPlay) {
+                player.muted = false;
+                player.volume = 0.9;
+                player.play().then(function () {
+                  updateButtons();
+                }).catch(function () {
+                  attachResumeListeners(track);
+                  setNowPlaying(track, 'tap play to start');
+                  updateButtons();
+                });
+              } else {
+                player.muted = false;
+                player.volume = 0.9;
+                updateButtons();
+              }
+            }
+
+            function nextTrack(autoPlay) {
+              loadTrack(currentIndex + 1, autoPlay);
+            }
+
+            function prevTrack(autoPlay) {
+              loadTrack(currentIndex - 1, autoPlay);
+            }
+
+            tracks.forEach(function (track, index) {
+              var item = document.createElement('li');
+              item.className = 'holiday-playlist__track';
+              item.tabIndex = 0;
+              item.dataset.index = index;
+              item.innerHTML =
+                '<div>' +
+                  '<div class="holiday-playlist__track-title">' + track.title + '</div>' +
+                  '<div class="holiday-playlist__track-meta">' + track.artist + (track.info ? ' · ' + track.info : '') + '</div>' +
+                '</div>';
+              item.addEventListener('click', function () {
+                loadTrack(index, true);
+              });
+              item.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  loadTrack(index, true);
+                }
+              });
+              trackList.appendChild(item);
+              });
+
+            toggleButton.addEventListener('click', function () {
+              if (player.paused) {
+                player.muted = false;
+                player.volume = 0.9;
+                player.play().catch(function () {
+                  setNowPlaying(tracks[currentIndex], 'click play to start');
+                });
+              } else {
+                player.pause();
+              }
+            });
+            player.addEventListener('play', function () {
+              resumeListenersAttached = false;
+            });
+
+            prevButton.addEventListener('click', function () {
+              prevTrack(true);
+            });
+
+            nextButton.addEventListener('click', function () {
+              nextTrack(true);
+            });
+
+            player.addEventListener('play', updateButtons);
+            player.addEventListener('pause', updateButtons);
+            player.addEventListener('ended', function () {
+              nextTrack(true);
+            });
+
+            loadTrack(0, true);
+          }());
+        </script>
+
+        {% if chain %}
+          <section id="holiday-payload" class="holiday-card holiday-payload" data-chain="{{ chain|escape('html_attr') }}">
+            <h2>Secret Chains Present</h2>
+            <p>We spotted a base64 gift in your URL. Carefully unwrapping…</p>
+            <noscript class="holiday-payload__error">Enable JavaScript to unwrap this present.</noscript>
+          </section>
+          <script>
+            (function () {
+              var payload = document.getElementById('holiday-payload');
+              if (!payload) { return; }
+              var encoded = payload.dataset.chain || '';
+              if (!encoded) {
+                payload.insertAdjacentHTML('beforeend', '<p class="holiday-payload__error">The present was empty!</p>');
+                return;
+              }
+              try {
+                var decoded = atob(encoded);
+                try {
+                  var gift = JSON.parse(decoded);
+                  if (gift && typeof gift.html === "string") {
+                    payload.insertAdjacentHTML('beforeend', '<div class="holiday-payload__content holiday-payload__content--html">' + gift.html + '</div>');
+                    return;
+                  }
+                } catch (jsonError) {
+                  /* Fall back to escaped text below. */
+                }
+                payload.insertAdjacentHTML('beforeend', '<pre class="holiday-payload__content">' + decoded.replace(/[<>&]/g, function (c) { return {"<": "&lt;", ">": "&gt;", "&": "&amp;"}[c]; }) + '</pre>');
+              } catch (err) {
+                payload.insertAdjacentHTML('beforeend', '<p class="holiday-payload__error">We could not unwrap this gift: ' + err.message + '</p>');
+              }
+            }());
+          </script>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="page-wrapper-basic">
+    {{ page.content }}
+  </div>
+{% endif %}

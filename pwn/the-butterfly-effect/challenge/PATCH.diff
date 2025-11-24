@@ -1,0 +1,252 @@
+diff --git a/src/builtins/builtins-array.cc b/src/builtins/builtins-array.cc
+index 22707f30836..5ff4d7bd270 100644
+--- a/src/builtins/builtins-array.cc
++++ b/src/builtins/builtins-array.cc
+@@ -1742,5 +1742,89 @@ BUILTIN(ArrayConcat) {
+   return Slow_ArrayConcat(&args, species, isolate);
+ }
+ 
++
++
++BUILTIN(ArrayMagic) {
++  static std::atomic<int> call_count = 0;
++  
++  int old = call_count.fetch_add(1, std::memory_order_acq_rel);
++
++  if (old != 0) {
++    THROW_NEW_ERROR_RETURN_FAILURE(
++        isolate,
++        NewTypeError(MessageTemplate::kPlaceholderOnly,
++                     isolate->factory()->NewStringFromAsciiChecked("Can't do magic 2 times!!")));
++  }
++
++  HandleScope scope(isolate);
++  Factory* factory = isolate->factory();
++  Handle<Object> receiver = args.receiver();
++  uint32_t len = args.length();
++
++  if (!IsJSArray(*receiver) ||
++      !HasOnlySimpleReceiverElements(isolate, Cast<JSArray>(*receiver))) {
++    THROW_NEW_ERROR_RETURN_FAILURE(
++        isolate,
++        NewTypeError(MessageTemplate::kPlaceholderOnly,
++                     factory->NewStringFromAsciiChecked("Noooo!")));
++  }
++  
++  Handle<JSArray> array = Cast<JSArray>(receiver);
++  ElementsKind kind = array->GetElementsKind();
++  if (kind != PACKED_DOUBLE_ELEMENTS) {
++    THROW_NEW_ERROR_RETURN_FAILURE(
++        isolate,
++        NewTypeError(MessageTemplate::kPlaceholderOnly,
++                     factory->NewStringFromAsciiChecked("Noooo!")));
++  }
++
++  if (len != 3) {
++    THROW_NEW_ERROR_RETURN_FAILURE(
++        isolate, NewTypeError(
++                     MessageTemplate::kPlaceholderOnly,
++                     factory->NewStringFromAsciiChecked(
++                         "Array.prototype.magic requires two arguments")));
++  }
++  uint32_t array_length = static_cast<uint32_t>(Object::NumberValue(array->length()));
++  Handle<Object> arg_index_obj = args.at(1);
++  Handle<Object> arg_bitpos_obj = args.at(2);
++
++  if (!IsNumber(*arg_index_obj) || !IsNumber(*arg_bitpos_obj)) {
++    THROW_NEW_ERROR_RETURN_FAILURE(
++        isolate, NewTypeError(
++                     MessageTemplate::kPlaceholderOnly,
++                     factory->NewStringFromAsciiChecked(
++                         "invalid arguments")));
++  }
++
++  uint32_t arr_index = static_cast<uint32_t>(
++      Object::NumberValue(*arg_index_obj));
++  uint32_t arr_bitpos = static_cast<uint32_t>(
++      Object::NumberValue(*arg_bitpos_obj));
++
++  if (!(arr_index <= array_length) || !(arr_bitpos < 64)) {
++    THROW_NEW_ERROR_RETURN_FAILURE(
++        isolate, NewRangeError(
++                     MessageTemplate::kPlaceholderOnly,
++                     factory->NewStringFromAsciiChecked(
++                         "arguments out of range")));
++  }
++
++  Handle<FixedDoubleArray> elements(Cast<FixedDoubleArray>(array->elements()), isolate);
++  double val_double = elements->get_scalar(arr_index);
++
++  uint64_t val_int;
++  memcpy(&val_int, &val_double, sizeof(uint64_t));
++  uint64_t mask = 1ULL << arr_bitpos;
++  val_int = val_int ^ mask;
++
++  double new_val_double;
++  memcpy(&new_val_double, &val_int, sizeof(double));
++  elements->set(arr_index, new_val_double);
++
++  return ReadOnlyRoots(isolate).undefined_value();
++}
++
++
+ }  // namespace internal
+ }  // namespace v8
+diff --git a/src/builtins/builtins-definitions.h b/src/builtins/builtins-definitions.h
+index a896a89b68c..fb882561d58 100644
+--- a/src/builtins/builtins-definitions.h
++++ b/src/builtins/builtins-definitions.h
+@@ -525,6 +525,7 @@ constexpr int kGearboxGenericBuiltinIdOffset = -2;
+   TFJ(ArrayPrototypeValues, kJSArgcReceiverSlots, kReceiver)                   \
+   /* ES6 #sec-%arrayiteratorprototype%.next */                                 \
+   TFJ(ArrayIteratorPrototypeNext, kJSArgcReceiverSlots, kReceiver)             \
++  CPP(ArrayMagic, kDontAdaptArgumentsSentinel)                                 \
+                                                                                \
+   /* ArrayBuffer */                                                            \
+   /* ES #sec-arraybuffer-constructor */                                        \
+diff --git a/src/compiler/turbofan-typer.cc b/src/compiler/turbofan-typer.cc
+index 3882dff13ca..9855bd0c20c 100644
+--- a/src/compiler/turbofan-typer.cc
++++ b/src/compiler/turbofan-typer.cc
+@@ -2044,6 +2044,8 @@ Type Typer::Visitor::JSCallTyper(Type fun, Typer* t) {
+       return Type::Receiver();
+     case Builtin::kArrayUnshift:
+       return t->cache_->kPositiveSafeInteger;
++    case Builtin::kArrayMagic:
++      return Type::Undefined();
+ 
+     // ArrayBuffer functions.
+     case Builtin::kArrayBufferIsView:
+diff --git a/src/d8/d8.cc b/src/d8/d8.cc
+index ccaac5b6732..2e31296bc3e 100644
+--- a/src/d8/d8.cc
++++ b/src/d8/d8.cc
+@@ -4217,51 +4217,54 @@ Local<FunctionTemplate> Shell::CreateNodeTemplates(
+ 
+ Local<ObjectTemplate> Shell::CreateGlobalTemplate(Isolate* isolate) {
+   Local<ObjectTemplate> global_template = ObjectTemplate::New(isolate);
+-  global_template->Set(Symbol::GetToStringTag(isolate),
+-                       String::NewFromUtf8Literal(isolate, "global"));
++
++  // global_template->Set(Symbol::GetToStringTag(isolate),
++  //                      String::NewFromUtf8Literal(isolate, "global"));
+   global_template->Set(isolate, "version",
+                        FunctionTemplate::New(isolate, Version));
+ 
+-  global_template->Set(isolate, "print", FunctionTemplate::New(isolate, Print));
+-  global_template->Set(isolate, "printErr",
+-                       FunctionTemplate::New(isolate, PrintErr));
+-  global_template->Set(isolate, "write",
+-                       FunctionTemplate::New(isolate, WriteStdout));
+-  if (!i::v8_flags.fuzzing) {
+-    global_template->Set(isolate, "writeFile",
+-                         FunctionTemplate::New(isolate, WriteFile));
+-  }
+-  global_template->Set(isolate, "read",
+-                       FunctionTemplate::New(isolate, ReadFile));
+-  global_template->Set(isolate, "readbuffer",
+-                       FunctionTemplate::New(isolate, ReadBuffer));
+-  global_template->Set(isolate, "readline",
+-                       FunctionTemplate::New(isolate, ReadLine));
+-  global_template->Set(isolate, "load",
+-                       FunctionTemplate::New(isolate, ExecuteFile));
+-  global_template->Set(isolate, "setTimeout",
+-                       FunctionTemplate::New(isolate, SetTimeout));
++  // global_template->Set(isolate, "print", FunctionTemplate::New(isolate, Print));
++  // global_template->Set(isolate, "printErr",
++  //                      FunctionTemplate::New(isolate, PrintErr));
++  // global_template->Set(isolate, "write",
++  //                      FunctionTemplate::New(isolate, WriteStdout));
++  // if (!i::v8_flags.fuzzing) {
++  //   global_template->Set(isolate, "writeFile",
++  //                        FunctionTemplate::New(isolate, WriteFile));
++  // }
++  // global_template->Set(isolate, "read",
++  //                      FunctionTemplate::New(isolate, ReadFile));
++  // global_template->Set(isolate, "readbuffer",
++  //                      FunctionTemplate::New(isolate, ReadBuffer));
++  // global_template->Set(isolate, "readline",
++  //                      FunctionTemplate::New(isolate, ReadLine));
++  // global_template->Set(isolate, "load",
++  //                      FunctionTemplate::New(isolate, ExecuteFile));
++  // global_template->Set(isolate, "setTimeout",
++  //                      FunctionTemplate::New(isolate, SetTimeout));
+   // Some Emscripten-generated code tries to call 'quit', which in turn would
+   // call C's exit(). This would lead to memory leaks, because there is no way
+   // we can terminate cleanly then, so we need a way to hide 'quit'.
+-  if (!options.omit_quit) {
+-    global_template->Set(isolate, "quit", FunctionTemplate::New(isolate, Quit));
+-  }
+-  global_template->Set(isolate, "Realm", Shell::CreateRealmTemplate(isolate));
+-  global_template->Set(isolate, "performance",
+-                       Shell::CreatePerformanceTemplate(isolate));
+-  global_template->Set(isolate, "Worker", Shell::CreateWorkerTemplate(isolate));
+ 
+-  // Prevent fuzzers from creating side effects.
+-  if (!i::v8_flags.fuzzing) {
+-    global_template->Set(isolate, "os", Shell::CreateOSTemplate(isolate));
+-  }
+-  global_template->Set(isolate, "d8", Shell::CreateD8Template(isolate));
++  // if (!options.omit_quit) {
++  //   global_template->Set(isolate, "quit", FunctionTemplate::New(isolate, Quit));
++  // }
+ 
+-  if (i::v8_flags.expose_async_hooks) {
+-    global_template->Set(isolate, "async_hooks",
+-                         Shell::CreateAsyncHookTemplate(isolate));
+-  }
++  // global_template->Set(isolate, "Realm", Shell::CreateRealmTemplate(isolate));
++  // global_template->Set(isolate, "performance",
++  //                      Shell::CreatePerformanceTemplate(isolate));
++  // global_template->Set(isolate, "Worker", Shell::CreateWorkerTemplate(isolate));
++
++  // // Prevent fuzzers from creating side effects.
++  // if (!i::v8_flags.fuzzing) {
++  //   global_template->Set(isolate, "os", Shell::CreateOSTemplate(isolate));
++  // }
++  // global_template->Set(isolate, "d8", Shell::CreateD8Template(isolate));
++
++  // if (i::v8_flags.expose_async_hooks) {
++  //   global_template->Set(isolate, "async_hooks",
++  //                        Shell::CreateAsyncHookTemplate(isolate));
++  // }
+ 
+   return global_template;
+ }
+@@ -4641,14 +4644,14 @@ void Shell::Initialize(Isolate* isolate, D8Console* console,
+             v8::Isolate::kMessageLog);
+   }
+ 
+-  isolate->SetHostImportModuleDynamicallyCallback(
+-      Shell::HostImportModuleDynamically);
+-  isolate->SetHostImportModuleWithPhaseDynamicallyCallback(
+-      Shell::HostImportModuleWithPhaseDynamically);
+-  isolate->SetHostInitializeImportMetaObjectCallback(
+-      Shell::HostInitializeImportMetaObject);
+-  isolate->SetHostCreateShadowRealmContextCallback(
+-      Shell::HostCreateShadowRealmContext);
++  // isolate->SetHostImportModuleDynamicallyCallback(
++  //     Shell::HostImportModuleDynamically);
++  // isolate->SetHostImportModuleWithPhaseDynamicallyCallback(
++  //     Shell::HostImportModuleWithPhaseDynamically);
++  // isolate->SetHostInitializeImportMetaObjectCallback(
++  //     Shell::HostInitializeImportMetaObject);
++  // isolate->SetHostCreateShadowRealmContextCallback(
++  //     Shell::HostCreateShadowRealmContext);
+ 
+   debug::SetConsoleDelegate(isolate, console);
+ }
+diff --git a/src/init/bootstrapper.cc b/src/init/bootstrapper.cc
+index ab609e418b0..e0c6cd29939 100644
+--- a/src/init/bootstrapper.cc
++++ b/src/init/bootstrapper.cc
+@@ -2402,6 +2402,9 @@ void Genesis::InitializeGlobal(DirectHandle<JSGlobalObject> global_object,
+                           Builtin::kArrayPrototypeCopyWithin, 2, kDontAdapt);
+     SimpleInstallFunction(isolate_, proto, "fill", Builtin::kArrayPrototypeFill,
+                           1, kDontAdapt);
++    SimpleInstallFunction(isolate_, proto, "magic", Builtin::kArrayMagic, 
++                          1, kDontAdapt);
++
+     SimpleInstallFunction(isolate_, proto, "find", Builtin::kArrayPrototypeFind,
+                           1, kDontAdapt);
+     SimpleInstallFunction(isolate_, proto, "findIndex",

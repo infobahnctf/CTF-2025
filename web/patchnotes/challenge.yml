@@ -1,0 +1,17 @@
+name: "PatchNotes CMS"
+author: "0xM4hm0ud, Yuu"
+category: web
+description: |-
+  The smallest CMS ever!
+
+  **Author**: 0xM4hm0ud, Yuu
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+files:
+  - patchnotes.zip
+state: visible
+version: "0.1"

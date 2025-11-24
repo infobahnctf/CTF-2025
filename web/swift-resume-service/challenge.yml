@@ -1,0 +1,24 @@
+name: "Swift Resume Service"
+author: "bawolff"
+category: web
+description: |-
+  I've been meaning to job hunt but writing a resume is just so slow.
+
+  I made an app to swiftly write resumes.
+
+  https://swift-resume-service-web.challs.infobahnc.tf
+  https://swift-resume-service-bot-web.challs.infobahnc.tf
+
+  **Author:** bawolff
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{EXT3ND_7H053_GR4PH3N3_C1U57R5}
+files:
+  - chall.zip
+state: visible
+version: "0.1"

@@ -1,0 +1,16 @@
+{
+  "name": "flaggetter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "jsdom": "^27.0.0",
+    "xml-crypto": "^6.1.2"
+  }
+}

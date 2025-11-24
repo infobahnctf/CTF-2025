@@ -1,0 +1,21 @@
+name: "deno9"
+author: "t-chen"
+category: rev
+description: |-
+  Another day passes by,
+
+  Just like every day I spend with you.
+
+  **Author**: t-chen
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{l1ttL3_d1D_I_Know_th47_d3no_D3pend5_0n_sQL1t3}
+files:
+  - deno9.zip
+state: visible
+version: "0.1"

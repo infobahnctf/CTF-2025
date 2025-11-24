@@ -1,0 +1,10 @@
+{
+  "version": "1.0.3",
+  "date": "2025-11-01",
+  "changes": [
+    "Fixed crash on startup when settings.json is missing",
+    "Improved UI responsiveness for low-end devices",
+    "Added debug toggle for verbose logs"
+  ],
+  "note": "Welcome to PatchNotes CMS — edit public changelogs here."
+}

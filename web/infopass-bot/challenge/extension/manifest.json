@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "Infopass",
+    "version": "1.0",
+    "permissions": [
+        "storage",
+        "scripting",
+        "activeTab",
+        "tabs"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "all_frames": true,
+            "match_origin_as_fallback": true
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+}

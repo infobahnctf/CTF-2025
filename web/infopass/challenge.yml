@@ -1,0 +1,22 @@
+name: "Infopass"
+author: "t-chen"
+category: web
+description: |-
+  Keep your P@ssw0rds safe!
+
+  https://infopass-web.challs2.infobahnc.tf
+  https://infopass-bot-web.challs2.infobahnc.tf
+
+  **Author**: t-chen
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{this_is_my_password_keep_it_safe!->qwerty123}
+files:
+  - infopass.zip
+state: visible
+version: "0.1"

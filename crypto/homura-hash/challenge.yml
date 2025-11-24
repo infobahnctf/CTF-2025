@@ -1,0 +1,24 @@
+name: "Homura Hash"
+author: "Aeren"
+category: crypto
+description: |-
+  ![Homura Hash](https://i.postimg.cc/0Q2htrRt/Homura-Hash.webp)
+
+  `nc homura-hash.challs.infobahnc.tf 1337`
+
+  > Note: There is a 120 seconds connection timeout.
+
+  **Author**: Aeren
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{7h3_m0r3_71m35_1_r3p347_17_7h3_m0r3_71m3_511p5_511gh71y_0ff_k1173r_0ur_f3311ng5_5h1f7_700_4nd_17_g375_h4rd3r_70_c0mmun1c473_1_g37_7h3_f3311ng_1_g07_1057_1n_71m3_10ng_4g0}
+files:
+  - challenge/server.py
+  - key.txt.zip
+state: visible
+version: "0.1"

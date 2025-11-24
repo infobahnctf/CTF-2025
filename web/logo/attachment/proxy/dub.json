@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"tchen"
+	],
+	"dependencies": {
+		"vibe-d": "~>0.10.2"
+	},
+	"name": "our_logo_proxy"
+}

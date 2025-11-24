@@ -1,0 +1,25 @@
+name: "bitsets-revenge"
+author: "rewhile, bawolff, yuu"
+category: beginner
+description: |-
+  She was not happy that you broke her cookies jar! I hope this time you won't run, shh!
+
+  https://bitset-revenge-web.challs3.infobahnc.tf
+
+  > Note: This challenge uses the same attachment as bitset-revenge, please capture FLAG2
+
+  **Author**: rewhile, bawolff, yuu
+value: 500
+type: dynamic
+tags:
+  - web
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{WE_gUE$Sed_7ha7_YOu_fOund_7Hi5_Payl0Ad_ON_p0rtsw19Ger}
+requirements:
+  - "bitset-revenge"
+state: visible
+version: "0.1"

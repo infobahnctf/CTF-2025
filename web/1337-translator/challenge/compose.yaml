@@ -1,0 +1,10 @@
+services:
+  bot:
+    build: .
+    restart: always
+    init: true
+    ports:
+      - 1337:1337
+    environment:
+      - FLAG=${FLAG:-flag{fake_flag}}
+      - APP_URL=http://localhost:1337

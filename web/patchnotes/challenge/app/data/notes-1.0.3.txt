@@ -1,0 +1,4 @@
+Community guidelines:
+- Be respectful
+- No spam
+- Patch notes are stored in JSON; plain text posts are archived as .txt

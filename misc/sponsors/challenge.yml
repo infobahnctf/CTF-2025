@@ -1,0 +1,17 @@
+name: "Sponsors"
+author: "Infobahn"
+category: misc
+description: |-
+  Check out our amazing sponsors! We could not have done it without their generous support.
+
+  https://2025.infobahnc.tf/sponsors
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{thanks_to_GoogleCloud_OffSec_OtterSec_RET2_Cybersharing_RapidRiskRadar_for_sponsoring!}
+state: visible
+version: "0.1"

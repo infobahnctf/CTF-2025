@@ -1,0 +1,17 @@
+name: "PatchNotes CMS - Revenge"
+author: "0xM4hm0ud, Yuu"
+category: web
+description: |-
+  Nice! Now try reading the flag again!
+
+  **Author**: 0xM4hm0ud, Yuu
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+files:
+  - patchnotes-revenge.zip
+state: visible
+version: "0.1"

@@ -1,0 +1,26 @@
+name: "bitsetsy-revenge"
+author: "rewhile, bawolff, yuu"
+category: beginner
+description: |-
+  bitset winked: tldr (●'◡'●) I hope this time you won't run, shh!
+
+  https://bitset-revenge-web.challs3.infobahnc.tf
+
+  > Note: This challenge uses the same attachment as bitset-revenge, please capture FLAG3
+
+  **Author**: rewhile, bawolff, yuu
+value: 500
+type: dynamic
+tags:
+  - web
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{We_ThiNK_Th47_y0U_@Re_INd3ed_A_W1zaRD}
+requirements:
+  - "bitset-revenge"
+  - "bitsets-revenge"
+state: visible
+version: "0.1"

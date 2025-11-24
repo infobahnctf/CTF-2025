@@ -1,0 +1,21 @@
+name: "pwnset"
+author: "rewhile"
+category: pwn
+description: |-
+  Found this in the wild
+
+  `nc pwnset.challs.infobahnc.tf 1337`
+
+  **Author**: rewhile
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{I_FOUnd_thIS_DUr1ng_PWN2owN_bU7_uNFoRTUN@TelY_nO7_EN0UGH_t1m3_t0_m@k3_17_aS_h@rd_45_tHE_ORI9in@1_$cen4rIo}
+files:
+  - pwnset.zip
+state: visible
+version: "0.1"

@@ -1,0 +1,21 @@
+name: "Padoru Pwn Parade - Revenge"
+author: "Yuu"
+category: web
+description: |-
+  Wow that was fast! Try to pwn it again!
+  https://www.youtube.com/watch?v=dQ_d_VKrFgM
+  ![padoru](https://i.imgur.com/4WmYjWU.gif)
+
+  > Please wait around 1-2 minutes for the instance. It takes some time to deploy.
+
+  **Author**: Yuu
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+files:
+  - dist.zip
+state: visible
+version: "0.1"

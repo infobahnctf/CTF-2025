@@ -1,0 +1,20 @@
+name: "Madoka RSA"
+author: "Aeren"
+category: crypto
+description: |-
+  ![Madoka RSA](https://i.postimg.cc/kgfDH7Jx/Madoka-RSA.webp)
+
+  **Author**: Aeren
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{1_w4n7_70_3r453_7h3_734r5_0f_411_7h053_wh0_7ru573d_1n_h0p3_1_w4n7_7h3m_70_b3_13f7_w17h_4_5m113_0n_7h31r_f4c35}
+files:
+  - challenge.py
+  - output.txt
+state: visible
+version: "0.1"

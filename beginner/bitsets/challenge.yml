@@ -1,0 +1,25 @@
+name: "bitsets"
+author: "rewhile, bawolff, yuu"
+category: beginner
+description: |-
+  She was not happy that you broke her cookies jar!
+
+  https://bitset-web.challs.infobahnc.tf
+
+  > Note: This challenge uses the same attachment as bitset, please capture FLAG2
+
+  **Author**: rewhile, bawolff, yuu
+value: 500
+type: dynamic
+tags:
+  - web
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{d1d_YOU_fINd_oUt_THI5_P4y10@D_From_por75wiG6Er}
+requirements:
+  - "bitset"
+state: visible
+version: "0.1"

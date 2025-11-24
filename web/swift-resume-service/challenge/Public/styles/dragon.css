@@ -1,0 +1,15 @@
+body { margin: 3em;
+  width:fit-content;
+  background: url( 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Flying-Dragon-Nebula_Sh_2-113.png/1866px-Flying-Dragon-Nebula_Sh_2-113.png') fixed red;
+  backdrop-filter: blur(2px);
+  font-size: larger;
+  color: yellow;
+  padding: 1em;
+}
+
+h1 { text-align:center}
+
+body > ul:before {
+  content: "Experience";
+  font-size: 150%;
+}

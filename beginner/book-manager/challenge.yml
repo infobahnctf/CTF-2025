@@ -1,0 +1,23 @@
+name: "Book Manager"
+author: "0xM4hm0ud"
+category: beginner
+description: |-
+  I wanted to learn some new language. I made a simple book manager. Can you take a look?
+
+  `nc book-manager.challs.infobahnc.tf 1337`
+
+  **Author**: 0xM4hm0ud
+value: 500
+type: dynamic
+tags:
+  - pwn
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{p4Sc@l_pwn_1s_fUn_r1ght??_83093484308}
+files:
+  - handout.zip
+state: visible
+version: "0.1"

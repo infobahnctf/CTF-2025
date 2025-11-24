@@ -1,0 +1,23 @@
+name: "bitset"
+author: "rewhile, bawolff, yuu"
+category: beginner
+description: |-
+  bitset made an image-sharing website, go share some cool images with her!
+
+  https://bitset-web.challs.infobahnc.tf
+
+  **Author**: rewhile, bawolff, yuu
+value: 500
+type: dynamic
+tags:
+  - web
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{1eT5_seE_whO_rE4Ds_th3_Php_docs}
+files:
+  - bitset.zip
+state: visible
+version: "0.1"

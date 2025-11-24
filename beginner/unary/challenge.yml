@@ -1,0 +1,23 @@
+name: "//"
+author: "22sh"
+category: beginner
+description: |-
+  unary-only
+
+  `nc unary.challs.infobahnc.tf 1337`
+
+  **Author**: 22sh
+value: 500
+type: dynamic
+tags:
+  - misc
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{hidding_code_in_comments_in_big_25_49ad95}
+files:
+  - unary.zip
+state: visible
+version: "0.1"

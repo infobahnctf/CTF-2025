@@ -1,0 +1,21 @@
+name: "Sandbox Viewer"
+author: "0xAlessandro"
+category: web
+description: |-
+  A simple app, what could go wrong?
+
+  https://sandbox-viewer-web.challs.infobahnc.tf
+
+  **Author:** 0xAlessandro
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{D1sk_C4che_t0_th3_r3scue}
+files:
+  - chall.zip
+state: visible
+version: "0.1"

@@ -1,0 +1,21 @@
+name: "SAML"
+author: "bawolff"
+category: web
+description: |-
+  Keeping flags secure is hard work. That's why I offloaded my user management to an identity provider.
+
+  https://saml-web.challs.infobahnc.tf
+
+  **Author**: Bawolff
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{The_S_in_SAML_stands_for_serpentine}
+files:
+  - chall.zip
+state: visible
+version: "0.1"

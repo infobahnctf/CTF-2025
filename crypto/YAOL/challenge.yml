@@ -1,0 +1,19 @@
+name: "YAOL"
+author: "ConnorM"
+category: crypto
+description: |-
+  > Length of the entire flag is 43 characters.
+
+  **Author**: ConnorM
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{Eric_Bach_is0m0rph1sms_fr0m_1984!}
+files:
+  - challenge.py
+state: visible
+version: "0.1"

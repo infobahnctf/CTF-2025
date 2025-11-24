@@ -1,0 +1,26 @@
+name: "bitsetsy"
+author: "rewhile, bawolff, yuu"
+category: beginner
+description: |-
+  bitset winked: tldr (●'◡'●)
+
+  https://bitset-web.challs.infobahnc.tf
+
+  > Note: This challenge uses the same attachment as bitset, please capture FLAG3
+
+  **Author**: rewhile, bawolff, yuu
+value: 500
+type: dynamic
+tags:
+  - web
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{C0NgR@tS_you_aR3_A_SEnior_1n73Rn_IN_BEGInNeR}
+requirements:
+  - "bitset"
+  - "bitsets"
+state: visible
+version: "0.1"

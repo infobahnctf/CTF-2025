@@ -1,0 +1,23 @@
+name: "Exception Handler - Baby Steps"
+author: "oh_word"
+category: misc
+description: |-
+  co_code challenges fell off. It's time for something new...
+
+  `nc exception-handler-easy.challs.infobahnc.tf 1337`
+
+  **Author**: oh_word
+value: 500
+type: dynamic
+tags:
+  - jail
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{easy_peasy_now_work_on_the_next_one}
+files:
+  - exception-handler-easy.zip
+state: visible
+version: "0.1"

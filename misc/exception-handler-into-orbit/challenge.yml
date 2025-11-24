@@ -1,0 +1,25 @@
+name: "Exception Handler - Into Orbit"
+author: "oh_word"
+category: misc
+description: |-
+  Can you use your new skills to turn the safest eval function into RCE?
+
+  Note: I recommend solving `Exception Handler - Baby Steps` before trying this challenge.
+
+  `nc exception-handler-hard.challs.infobahnc.tf 1337`
+
+  **Author**: oh_word
+value: 500
+type: dynamic
+tags:
+  - jail
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{you_are_now_the_master_of_co_exceptiontables}
+files:
+  - exception-handler-hard.zip
+state: visible
+version: "0.1"

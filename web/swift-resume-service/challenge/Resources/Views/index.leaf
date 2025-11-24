@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" href="/styles/main.css">
+<script src="/scripts/main.js"></script>
+<title>Swiftly building resumes</title></head>
+<body>
+<main>
+<div class="intro">
+Swiftly need a resume on the quick? Look no further than our free swift resume builder!
+</div>
+<div class="resume">
+<label for="templateDrop">Select your resume theme</label>
+<select id="templateDrop">
+	<option selected value='
+<link rel="stylesheet" href="/styles/waterfall.css">
+<address>$name<br><a href="mailto:$email">$email</a></address>
+<h2>$currentPosition</h2>
+<p class="desc">$currentPositionDescription</p>
+'>Blue waterfall</option>
+	<option value='
+<link rel="stylesheet" href="/styles/dragon.css">
+<h1>$name</h1>
+<address>$email</address>
+<ul>
+<li>🐉🐉 $currentPosition 🐉🐉</li>
+<ul><li>$currentPositionDescription</li></ul>
+</li></ul>
+'>Red dragon</option>
+	<option value='
+<link rel="stylesheet" href="/styles/bamboo.css">
+<h1>$name</h1>
+<address>$email</address>
+<ul>
+<li>$currentPosition</li>
+<ul><li>$currentPositionDescription</li></ul>
+</li></ul>
+'>Serene bamboo</option>
+	<option value="_custom">Custom</option>
+</select>
+<form method="POST" action="/resumes">
+<div id="templateIn">
+Add the HTML for your custom resume template:
+<br>
+<textarea name="template" id="template">
+<link rel="stylesheet" href="/styles/waterfall.css">
+<address>$name<br>$email</address>
+<h2>$currentPosition</h2>
+<p class="desc">$currentPositionDescription</p>
+</textarea>
+</div>
+<br>
+<label for="name">Name: </label><input type="text" id="name" name="name"><br>
+<label for="email">Email: </label><input type="email" id="email" name="email"><br>
+<label for="currentPosition">Current position: </label><input type="text" id="currentPosition" name="currentPosition"><br>
+<label for="currentPositionDesc">Description of current position: </label><input type="text" id="currentPositionDesc" name="currentPositionDesc"><br>
+<input type="submit" value="Make resume">
+</form>
+</div>
+</main>
+</body>
+</html>

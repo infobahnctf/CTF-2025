@@ -1,0 +1,20 @@
+name: "Sayaka Stream"
+author: "Aeren"
+category: crypto
+description: |-
+  ![Sayaka Stream](https://i.postimg.cc/02Qk3Hny/Sayaka-Stream.webp)
+
+  **Author**: Aeren
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{W3_und3r5700d_n07h1ng_47_411_N07_wh47_17_m34n7_70_w15h_f0r_4_m1r4c13_n0r_175_pr1c3}
+files:
+  - challenge.py
+  - output.txt
+state: visible
+version: "0.1"

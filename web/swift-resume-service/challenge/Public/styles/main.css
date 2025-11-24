@@ -1,0 +1,10 @@
+main { margin: 2em; background:white; border:1px solid black; padding:0.3em 1em}
+body {background: #cdf; line-height: 1.8 }
+#templateIn {display:none}
+#template {
+	max-width: 100%;
+	width: 20em;
+	height: 8em;
+}
+
+.intro { font-size: larger }

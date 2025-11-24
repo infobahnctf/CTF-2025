@@ -1,0 +1,1 @@
+docker build -t deno9 . && docker run -it --rm --name deno9-container deno9 

@@ -1,0 +1,20 @@
+name: "Kyoko Ring"
+author: "Aeren"
+category: crypto
+description: |-
+  ![Kyoko Ring](https://i.postimg.cc/XYyhhwyx/Kyoko-Ring.webp)
+
+  **Author**: Aeren
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{N07_f3311ng_b4d_f0r_07h3r5_m34n5_h4v1ng_n0_r3gr375}
+files:
+  - challenge.py
+  - output.txt
+state: visible
+version: "0.1"

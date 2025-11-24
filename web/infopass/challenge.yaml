@@ -1,0 +1,24 @@
+apiVersion: kctf.dev/v1
+kind: Challenge
+metadata:
+  name: infopass
+spec:
+  deployed: true
+  powDifficultySeconds: 0
+  network:
+    public: true
+    ports:
+      - protocol: "HTTPS"
+        targetPort: 1337
+        domains:
+          - "challs2.infobahnc.tf"
+  podTemplate:
+    template:
+      spec:
+        containers:
+          - name: challenge
+            env:
+              - name: SECRET_KEY
+                value: "MRB4Q0sgMpKrP0PfNm8veBr4euVC1Q6c"
+  healthcheck:
+    enabled: false

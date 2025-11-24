@@ -1,0 +1,20 @@
+name: "fish"
+author: "aa.crypto"
+category: rev
+description: |-
+  This fish is swimming backward, can you reverse it? Wrap the flag with `infobahn{}`
+
+  **Author**: aa.crypto
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{th3_f1sh_15_happy_again}
+files:
+  - chall.txt
+  - fish.py
+state: visible
+version: "0.1"

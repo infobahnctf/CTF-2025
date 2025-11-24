@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  drupal:
+    build: .
+    container_name: drupal_app
+    environment:
+      - DRUPAL_DB_HOST=127.0.0.1
+      - DRUPAL_DB_NAME=drupal
+      - DRUPAL_DB_USER=drupal
+      - DRUPAL_DB_PASSWORD=drupal_password
+      - DRUPAL_DB_PORT=3306
+      - MARIADB_ROOT_PASSWORD=root_password
+    ports:
+      - "1337:80"
+    restart: unless-stopped

@@ -1,0 +1,21 @@
+name: "Linearity"
+author: "BIGMONKE"
+category: beginner
+description: |-
+  A gentle introduction to linear cryptanalysis 🙂
+
+  **Author**: BIGMONKE
+value: 500
+type: dynamic
+tags:
+  - crypto
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{You_HAVE_Aff1niTy_f0rCrypto}
+files:
+  - chall.py
+state: visible
+version: "0.1"

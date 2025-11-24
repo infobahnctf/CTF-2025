@@ -1,0 +1,22 @@
+name: "1337 translator"
+author: "bawolff"
+category: web
+description: |-
+  I've always wanted to be a 1337 H4X0R, but the lingo was too much for me. I made this cool
+  app to help. Send me an interesting message if you want.
+
+  https://translator-web.challs3.infobahnc.tf
+
+  **Author:** bawolff
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+flags:
+  - infobahn{1F_0N1Y_Xh7M1_W0N}
+files:
+  - chall.zip
+state: visible
+version: "0.1"

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Bot</title>
+</head>
+<body>
+  <p id="status">Let me see your logo</p>
+  <button id="showBtn" type="button">Show</button>
+
+  <script>
+    const status = document.getElementById('status');
+    const btn = document.getElementById('showBtn');
+
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      status.textContent = 'Viewing...';
+
+      try {
+        const res = await fetch('/', { method: 'POST' });
+        if (!res.ok) throw new Error('non-2xx response');
+        status.textContent = 'Nice logo';
+      } catch (e) {
+        status.textContent = 'Something went wrong';
+        console.error(e);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
